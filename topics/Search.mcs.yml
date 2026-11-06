@@ -15,8 +15,9 @@ beginDialog:
         Answer ODA setup and configuration questions for Microsoft Entra ID and
         Active Directory assessments using current approved knowledge. Both the
         shared setup guidance and assessment-specific instructions are on
-        Microsoft Learn. Do not use Microsoft Learn PDFs or model memory as
-        technical evidence. Do not substitute another assessment's procedure.
+        Microsoft Learn. Use static files (PDFs, Word, PowerPoint, Excel) only
+        from the ODA SharePoint knowledge source, never from Learn or other
+        sources, and never model memory, as technical evidence. Do not substitute another assessment's procedure.
         Exclude the known-outdated assessment-prereq-docs page even when linked.
         The shared setup landing page links to required instructions; a summary
         of that page alone is not an end-to-end guide. Only provide procedures
@@ -29,6 +30,10 @@ beginDialog:
         paths, or make scenario choices into universal requirements.
         Do not substitute scheduled-task configuration for from-the-beginning
         setup or claim completeness when required sections are missing.
+        For troubleshooting, use the ADO Wiki knowledge source first, then
+        Learn, SharePoint, and the Tech Discussion Teams channel (read-only).
+        Wiki, SharePoint, and Teams guidance never overrides official Learn
+        requirements; ODA-specific wiki content may be thin, so do not infer.
         Use Microsoft Learn-like technical depth, clear headings, and ordered
         steps where appropriate. Separate requirements from recommendations.
         Embed verified reference links in the relevant descriptive text while
@@ -56,3 +61,19 @@ beginDialog:
             - kind: EndDialog
               id: end-topic
               clearTopicQueue: true
+
+      elseActions:
+        - kind: SendActivity
+          id: no-answer-message
+          activity: |-
+            I couldn't find documentation that answers this question, so I can't give a supported answer or procedure. Nothing was retrieved from the approved sources (Microsoft Learn, the Azure DevOps wiki, the ODA SharePoint site, or the Tech Discussion channel) that covers it.
+
+            You can:
+            - Rephrase with the assessment (Microsoft Entra ID or Active Directory), the setup stage, and whether the collector VM is in Azure or uses Azure Arc.
+            - Post the question to the Tech Discussion - On-Demand Assessment Setup VTeam chat (or email d6a4891c.microsoft.com@amer.teams.ms). I can't post or send it for you.
+
+            I can prepare a copy-ready draft with your scenario, what I searched, and the gap. Redact customer-sensitive information and credentials before sending. Want me to prepare it?
+
+        - kind: EndDialog
+          id: end-topic-no-answer
+          clearTopicQueue: true

@@ -10,12 +10,10 @@ modelDescription: |-
   and checks, collector preparation, agent/DCR configuration, workspace
   ingestion, workload task setup, and results.
   Retrieve applicable required linked-page content, not just a landing page
-  or workload task. Exclude Learn PDFs, unrelated assessment procedures, and
-  the known-outdated assessment-prereq-docs page even when linked elsewhere.
-  Use specific queries: assessment name, stage, scenario (Azure VM or Arc), and
-  intent such as prerequisites or steps. Search excerpts are not full evidence;
-  fetch applicable pages with Microsoft Learn Docs Fetch before giving
-  procedures. Report missing evidence; do not invent a procedure.
+  or workload task. Use specific queries: assessment name, stage, scenario
+  (Azure VM or Arc), and intent such as prerequisites or steps. Search excerpts
+  are not full evidence; fetch applicable pages with Microsoft Learn Docs Fetch
+  before giving procedures.
 action:
   kind: InvokeExternalAgentTaskAction
   connectionReference: cr8e6_ODASetupbuddy.shared_microsoftlearndocsmcpserver.6786b20f95694fb19a7f77969921076d

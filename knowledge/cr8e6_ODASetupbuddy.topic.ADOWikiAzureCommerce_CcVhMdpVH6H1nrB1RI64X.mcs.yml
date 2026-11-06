@@ -1,15 +1,13 @@
 mcs.metadata:
   componentName: ADO Wiki (Azure-Commerce)
   description: |-
-    Keywords - Wiki, Article, Documentation, Docs, Knowledge base, Azure DevOps, ADO, Azure-Commerce
-
-    This connection to Azure DevOps contains wikis and documentations related to software development, engineering or support articles, product details or notes for meetings etc. These are reference guides used by teams.
-
+    Azure-Commerce Azure DevOps wiki. Primary source for troubleshooting On-Demand Assessment (ODA) setup: Windows Server, Azure subscription RBAC, Azure Monitor, Azure Monitor Agent (AMA), data collection rules (DCR), Azure Arc installation, Log Analytics, networking and firewall troubleshooting, and the ODA binary folder structure and log locations. ODA-specific content may be limited. Supplements, and never overrides, official Microsoft Learn requirements.
 
     Sample prompts -
 
-    Search for the wiki about Contoso
-    Find the documentation regarding project fabrikam
+    Troubleshoot Azure Monitor Agent not sending data to Log Analytics
+    Where are ODA logs located on the collector VM
+    Azure Arc agent onboarding fails
 kind: KnowledgeSourceConfiguration
 source:
   kind: GraphConnectorSearchSource

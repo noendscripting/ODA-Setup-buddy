@@ -104,8 +104,8 @@ beginDialog:
       value: |-
         =If(
           Text(Topic.SetupPath) = "From the beginning",
-          "Provide current Microsoft Learn web-page prerequisites, ordered setup and configuration steps, and validation checks for the " &
-          Text(Topic.Assessment) & " On-Demand Assessment. The user wants to start from the beginning. " &
+          "Provide a top-level overview, based on current Microsoft Learn web pages, of the tasks in order of precedence (prerequisites, setup and configuration, and validation checks) for the " &
+          Text(Topic.Assessment) & " On-Demand Assessment, without detailed procedures. End by offering step-by-step instructions, either end to end or for specific sections or steps. The user wants to start from the beginning. " &
           If(Topic.ConnectorSameSubscription,
             "The Engage Center Connector and Log Analytics workspace will be in the same Azure subscription. ",
             "The Engage Center Connector and Log Analytics workspace will be in different Azure subscriptions. ") &
@@ -120,12 +120,9 @@ beginDialog:
           "5. How scheduled-task output is collected and sent to the linked Log Analytics workspace, including documented DCR associations, destinations, and ingestion checks. Distinguish configuration from data transport. " &
           "6. Workload-specific task setup, execution, and results viewing in the correct product. " &
           "Show source coverage for every stage with embedded links or an explicit missing/unclear/conflicting status. " &
-          "Exclude the known-outdated assessment-prereq-docs page even when linked from another ODA page. " &
-          "Do not replace from-the-beginning setup with a task-only guide that assumes all infrastructure and binaries are installed. " &
-          "If a required stage is unsupported or contradictory, explain the gap and withhold the affected procedure. " &
-          "Do not claim full alignment, completeness, or verification merely because MCP ran or returned a task setup page.",
+          "Do not replace from-the-beginning setup with a task-only guide that assumes all infrastructure and binaries are installed.",
           "Using current Microsoft Learn web pages for the " & Text(Topic.Assessment) &
-          " On-Demand Assessment, answer this setup question: " & Topic.AssessmentQuestion
+          " On-Demand Assessment, answer this setup question with detailed, ordered, step-by-step instructions where evidence supports them: " & Topic.AssessmentQuestion
         )
 
     - kind: EndDialog
