@@ -1,0 +1,22 @@
+mcs.metadata:
+  componentName: ADO Wiki (Azure-Commerce)
+  description: |-
+    Keywords - Wiki, Article, Documentation, Docs, Knowledge base, Azure DevOps, ADO, Azure-Commerce
+
+    This connection to Azure DevOps contains wikis and documentations related to software development, engineering or support articles, product details or notes for meetings etc. These are reference guides used by teams.
+
+
+    Sample prompts -
+
+    Search for the wiki about Contoso
+    Find the documentation regarding project fabrikam
+kind: KnowledgeSourceConfiguration
+source:
+  kind: GraphConnectorSearchSource
+  connectionId:
+    schemaName: cr8e6_ODASetupbuddy.envVar.bEOFu2sKueTYI09q_KVSS
+
+  connectionName: AzureDevOpsWiki31
+  contentSourceDisplayName: ADO Wiki (Azure-Commerce)
+  contentSourceIcon: https://res.sdf.cdn.office.net/admincenter/admin-content/AzureDevOps_Medium.png
+  publisherName: Microsoft

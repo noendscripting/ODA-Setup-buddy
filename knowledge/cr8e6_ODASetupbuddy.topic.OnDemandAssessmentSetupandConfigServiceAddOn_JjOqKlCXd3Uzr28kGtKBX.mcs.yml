@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: On-Demand Assessment - Setup and Config Service Add-On
+  description: This knowledge source provides information found in On-Demand Assessment - Setup and Config Service Add-On SharePoint.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: SharePointSearchSource
+  site: https://microsoft.sharepoint.com/teams/ASDIPDevelopment/Development_GlobalDelivery/On-Demand%20Assessment%20-%20Setup%20and%20Config%20Service%20Add-On

@@ -1,0 +1,11 @@
+kind: EnvironmentVariableDefinition
+version: 7039978
+schemaName: cr8e6_ODASetupbuddy.envVar.bEOFu2sKueTYI09q_KVSS
+id: 6c58995b-e87d-4a3c-a642-4f34d65fb7f1
+valueComponent:
+  version: 7039979
+  id: 2edefe5f-28d9-f111-84e8-000d3a33f9b0
+  definitionId: 6c58995b-e87d-4a3c-a642-4f34d65fb7f1
+  value: AzureDevOpsWiki31
+
+type: String

@@ -1,0 +1,11 @@
+kind: EnvironmentVariableDefinition
+version: 6298853
+schemaName: cr8e6_ODASetupbuddy.envVar.nt7TzHwS06tVSQrYRfOmC
+id: 79efc1a0-4307-4f0b-bf2f-d8546695168c
+valueComponent:
+  version: 6298854
+  id: ef3b0205-6361-f111-ab0c-0022480a587b
+  definitionId: 79efc1a0-4307-4f0b-bf2f-d8546695168c
+  value: WebsitesLearnMSCom
+
+type: String

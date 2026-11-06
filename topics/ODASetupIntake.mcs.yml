@@ -1,0 +1,140 @@
+mcs.metadata:
+  componentName: ODA Setup Intake
+  description: Collect the original setup choices and return confirmed context for Learn retrieval.
+kind: AdaptiveDialog
+modelDescription: |-
+  Use this topic when the user asks for help setting up ODA or an On-Demand
+  Assessment without a specific factual question, asks to start setup from the
+  beginning, or requests a guided setup walkthrough for Microsoft Entra ID or
+  Active Directory Assessment. For example, "I need help setting up ODA" or
+  "Walk me through ODA setup". This topic collects setup choices and returns
+  SetupRequest to the agent. Its output is a retrieval request, not technical
+  evidence or a setup answer. After this topic, use Microsoft Learn Docs MCP
+  Server to retrieve current shared and linked assessment guidance before
+  answering. Do not use this topic for direct factual questions about
+  a named prerequisite, permission, error, or command; use the configured
+  reference sources directly for those questions.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_setupPath
+      alwaysPrompt: true
+      variable: init:Topic.SetupPath
+      prompt: Do you need to start from the beginning or want help with a specific assessment?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: FromBeginning
+              displayName: From the beginning
+              synonyms:
+                - Start from the beginning
+                - Beginning
+                - Start over
+
+            - id: SpecificAssessment
+              displayName: A specific assessment
+              synonyms:
+                - Specific assessment
+                - Assessment-specific help
+
+    - kind: ConditionGroup
+      id: condition_setupPath
+      conditions:
+        - id: condition_fromBeginning
+          condition: =Text(Topic.SetupPath) = "From the beginning"
+          actions:
+            - kind: Question
+              id: question_connectorSubscription
+              alwaysPrompt: true
+              variable: init:Topic.ConnectorSameSubscription
+              prompt: Will the Engage Center Connector be located in the same Azure subscription as the Log Analytics workspace?
+              entity: BooleanPrebuiltEntity
+
+            - kind: Question
+              id: question_collectorLocation
+              alwaysPrompt: true
+              variable: init:Topic.CollectorInAzure
+              prompt: Will the collector VM be hosted in Azure? Answer No if it will be hosted outside Azure.
+              entity: BooleanPrebuiltEntity
+
+    - kind: Question
+      id: question_assessment
+      alwaysPrompt: true
+      variable: init:Topic.Assessment
+      prompt: Which assessment do you want to configure?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: EntraID
+              displayName: Microsoft Entra ID
+              synonyms:
+                - Entra ID
+                - Entra
+                - Azure Active Directory
+
+            - id: ActiveDirectory
+              displayName: Active Directory
+              synonyms:
+                - AD
+                - Active Directory Assessment
+
+    - kind: ConditionGroup
+      id: condition_specificAssessment
+      conditions:
+        - id: condition_specificQuestion
+          condition: =Text(Topic.SetupPath) = "A specific assessment"
+          actions:
+            - kind: Question
+              id: question_assessmentQuestion
+              alwaysPrompt: true
+              variable: init:Topic.AssessmentQuestion
+              prompt: Which setup step or configuration question do you need help with?
+              entity: StringPrebuiltEntity
+
+    - kind: SetVariable
+      id: setVariable_setupRequest
+      variable: Topic.SetupRequest
+      value: |-
+        =If(
+          Text(Topic.SetupPath) = "From the beginning",
+          "Provide current Microsoft Learn web-page prerequisites, ordered setup and configuration steps, and validation checks for the " &
+          Text(Topic.Assessment) & " On-Demand Assessment. The user wants to start from the beginning. " &
+          If(Topic.ConnectorSameSubscription,
+            "The Engage Center Connector and Log Analytics workspace will be in the same Azure subscription. ",
+            "The Engage Center Connector and Log Analytics workspace will be in different Azure subscriptions. ") &
+          If(Topic.CollectorInAzure,
+            "The collector VM will be hosted in Azure. ",
+            "The collector VM will be hosted outside Azure; retrieve the applicable Azure Arc onboarding requirements. ") &
+          "Treat this request as a research plan, not one broad search. Use focused Learn MCP searches for each required stage: " &
+          "1. Current system, software, network requirements and task-specific Azure roles/scopes. " &
+          "2. The role of the Engage Center workspace and Azure Engage Center Connector, subscription/workspace linking, and adding the assessment with its target machine and working directory. " &
+          "3. How the assessment platform and workload extensions deliver the required binaries/packages to this VM; installation prerequisites and checks that delivery succeeded before running assessment commands. " &
+          "4. Collector preparation, policy settings, and the scenario-appropriate Azure Monitor Agent and collection configuration. " &
+          "5. How scheduled-task output is collected and sent to the linked Log Analytics workspace, including documented DCR associations, destinations, and ingestion checks. Distinguish configuration from data transport. " &
+          "6. Workload-specific task setup, execution, and results viewing in the correct product. " &
+          "Show source coverage for every stage with embedded links or an explicit missing/unclear/conflicting status. " &
+          "Exclude the known-outdated assessment-prereq-docs page even when linked from another ODA page. " &
+          "Do not replace from-the-beginning setup with a task-only guide that assumes all infrastructure and binaries are installed. " &
+          "If a required stage is unsupported or contradictory, explain the gap and withhold the affected procedure. " &
+          "Do not claim full alignment, completeness, or verification merely because MCP ran or returned a task setup page.",
+          "Using current Microsoft Learn web pages for the " & Text(Topic.Assessment) &
+          " On-Demand Assessment, answer this setup question: " & Topic.AssessmentQuestion
+        )
+
+    - kind: EndDialog
+      id: end_setupIntake
+
+inputType: {}
+outputType:
+  properties:
+    SetupRequest:
+      displayName: Confirmed ODA setup request
+      description: Confirmed workload and setup choices for subsequent Microsoft Learn MCP retrieval. This is not a technical answer or evidence that documentation was retrieved.
+      type: String

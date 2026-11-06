@@ -1,0 +1,25 @@
+mcs.metadata:
+  componentName: Microsoft Learn Docs MCP - Microsoft Learn Docs MCP Server
+kind: TaskDialog
+modelDisplayName: Microsoft Learn Docs MCP Server
+modelDescription: |-
+  Search current Microsoft Learn web-page evidence for shared ODA setup and
+  Microsoft Entra ID or Active Directory Assessments. After ODA Setup Intake,
+  use SetupRequest as scope for focused searches by stage: prerequisites/RBAC,
+  Engage Center/Connector roles and linking, extension-based binary delivery
+  and checks, collector preparation, agent/DCR configuration, workspace
+  ingestion, workload task setup, and results.
+  Retrieve applicable required linked-page content, not just a landing page
+  or workload task. Exclude Learn PDFs, unrelated assessment procedures, and
+  the known-outdated assessment-prereq-docs page even when linked elsewhere.
+  Search hits alone do not prove coverage. Report missing evidence; do not
+  invent a procedure or claim completeness.
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: cr8e6_ODASetupbuddy.shared_microsoftlearndocsmcpserver.6786b20f95694fb19a7f77969921076d
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: microsoft_docs_search

@@ -1,0 +1,58 @@
+mcs.metadata:
+  componentName: Conversational boosting
+  description: Create generative answers from knowledge sources.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  priority: -1
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search-content
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Answer ODA setup and configuration questions for Microsoft Entra ID and
+        Active Directory assessments using current approved knowledge. Both the
+        shared setup guidance and assessment-specific instructions are on
+        Microsoft Learn. Do not use Microsoft Learn PDFs or model memory as
+        technical evidence. Do not substitute another assessment's procedure.
+        Exclude the known-outdated assessment-prereq-docs page even when linked.
+        The shared setup landing page links to required instructions; a summary
+        of that page alone is not an end-to-end guide. Only provide procedures
+        when retrieved content covers the applicable linked prerequisites,
+        permissions, Engage Center/Connector roles, assessment binary delivery,
+        collector/agent configuration, Log Analytics ingestion, and validation.
+        A link or page title is not evidence that its contents were retrieved.
+        If required content is missing, identify the gap and withhold the
+        affected steps. Do not broaden version lists, merge Azure VM and Arc
+        paths, or make scenario choices into universal requirements.
+        Do not substitute scheduled-task configuration for from-the-beginning
+        setup or claim completeness when required sections are missing.
+        Use Microsoft Learn-like technical depth, clear headings, and ordered
+        steps where appropriate. Separate requirements from recommendations.
+        Embed verified reference links in the relevant descriptive text while
+        preserving native citations. Do not invent links or technical details.
+        If the documentation is unclear or contradictory, withhold the affected
+        procedure, explain the uncertainty, and give concrete linked examples
+        from the retrieved pages. Do not invent a conflict when retrieval fails;
+        explicitly report missing evidence instead. Internal discussion cannot
+        override unclear official requirements. Ask for material missing context
+        and preserve the original setup-question sequence. Do not claim to have
+        run commands, validated the environment, or completed setup.
+        For documentation gaps or contradictions, suggest emailing all reported
+        items together to Tech Discussion - On-Demand Assessment Setup VTeam
+        <d6a4891c.microsoft.com@amer.teams.ms>. Offer a copy-ready draft with
+        source links and ask the user to redact sensitive information. Do not
+        send email or post to Teams. Use host-provided Copy UI when available;
+        otherwise offer copy-ready text, never a fake clipboard button.
+
+    - kind: ConditionGroup
+      id: has-answer-conditions
+      conditions:
+        - id: has-answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end-topic
+              clearTopicQueue: true

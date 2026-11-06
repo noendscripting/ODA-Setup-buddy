@@ -1,0 +1,13 @@
+mcs.metadata:
+  componentName: Learn.Microsoft.com
+  description: Microsoft Learn is an online resource designed to build skills related to Microsoft products and services. It supports learning through comprehensive training resources, such as modules and courses, to boost technical skills. It provides reference materials, such as product documentation, code samples, and community forums, to support users in product implementation and improving product functionality. It also provides certifications and challenges, allowing users to promote which skills they have learned.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: GraphConnectorSearchSource
+  connectionId:
+    schemaName: cr8e6_ODASetupbuddy.envVar.nt7TzHwS06tVSQrYRfOmC
+
+  connectionName: Microsoft Learn
+  contentSourceDisplayName: Learn.Microsoft.com
+  contentSourceIcon: https://res.sdf.cdn.office.net/admincenter/admin-content/IntranetSites_Medium.png
+  publisherName: Microsoft
